@@ -1,0 +1,529 @@
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KG International</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --gold: #c8a96e;
+    --gold-dim: #a88a52;
+    --text: #f0ede8;
+    --muted: #888;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 68px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--gold);
+    border: none;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-dim); }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-size: clamp(120px, 20vw, 280px);
+    font-weight: 700;
+    color: #fff;
+    opacity: 0.025;
+    pointer-events: none;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .hero-content { max-width: 660px; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  h1 em { font-style: normal; color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    background: var(--gold);
+    color: #0d0d0d;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-dim); }
+  .btn-ghost {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+  .btn-ghost:hover::after { transform: translateX(4px); }
+  .stats-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    padding: 0 48px;
+    background: var(--surface);
+  }
+  .stat-item {
+    flex: 1;
+    padding: 28px 0 28px 40px;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:first-child { padding-left: 0; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  section { padding: 96px 48px; }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .product-card {
+    background: var(--card);
+    padding: 36px 32px;
+    transition: background 0.2s;
+  }
+  .product-card:hover { background: #1f1f1f; }
+  .product-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .product-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .product-card h3 {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+  .product-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .product-tag {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .why-item {
+    background: var(--card);
+    padding: 36px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .why-num {
+    font-family: var(--font-display);
+    font-size: 40px; font-weight: 700;
+    color: var(--border);
+    line-height: 1; flex-shrink: 0; min-width: 48px;
+    transition: color 0.2s;
+  }
+  .why-item:hover .why-num { color: var(--gold); }
+  .why-item h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .why-item p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 28px; font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .contact-info p { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
+  .contact-detail {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px; color: var(--muted);
+  }
+  .contact-detail:first-of-type { border-top: 1px solid var(--border); }
+  .contact-detail strong { color: var(--text); font-weight: 500; }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .contact-form input,
+  .contact-form textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 14px 16px;
+    outline: none; resize: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: var(--muted); }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--gold); }
+  .contact-form textarea { height: 100px; }
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p { font-size: 12px; color: var(--muted); }
+  @media (max-width: 720px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 60px; }
+    section { padding: 64px 20px; }
+    .stats-bar { padding: 0 20px; flex-wrap: wrap; }
+    .products-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">KG<span>&nbsp;International</span></div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a quote</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-text">BUILD</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Building hardware supplier</div>
+    <h1>Built to<br><em>last.</em><br>Built to fit.</h1>
+    <p class="hero-desc">KG International supplies premium architectural hardware — door handles, aluminium mesh, fittings, and fixtures — for builders, contractors, and developers who refuse to compromise.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#products">View products</a>
+      <a class="btn-ghost" href="#contact">Request a quote</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">20+</div>          <!-- Change this number -->
+    <div class="stat-label">Years in business</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">500+</div>         <!-- Change this number -->
+    <div class="stat-label">Products stocked</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1000+</div>        <!-- Change this number -->
+    <div class="stat-label">Projects supplied</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Pan-India</div>
+    <div class="stat-label">Delivery reach</div>
+  </div>
+</div>
+
+<section id="products">
+  <div class="section-eyebrow">What we supply</div>
+  <div class="section-title">Our product range</div>
+  <p class="section-sub">Everything you need to finish a building with precision and style — sourced, stocked, and ready to deliver.</p>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12z"/><circle cx="16" cy="12" r="1.5"/></svg>
+      </div>
+      <h3>Door handles</h3>   <!-- Change product name -->
+      <p>Lever sets, pull handles, and mortise locks in stainless steel, brass, and alloy finishes for residential and commercial doors.</p>  <!-- Change description -->
+      <span class="product-tag">In stock</span>  <!-- Change tag -->
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18" stroke-width="1.2"/></svg>
+      </div>
+      <h3>Aluminium mesh</h3>
+      <p>Expanded and woven aluminium mesh for ventilation grilles, security screens, and architectural cladding panels.</p>
+      <span class="product-tag">Custom sizes</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Window fittings</h3>
+      <p>Casement stays, friction hinges, window handles, and locking mechanisms to suit aluminium and UPVC frames.</p>
+      <span class="product-tag">In stock</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12L4 7M12 12l8-5M4 7V17l8 5 8-5V7M4 7l8-5 8 5"/></svg>
+      </div>
+      <h3>Structural fittings</h3>
+      <p>Anchors, brackets, channels, and couplings for load-bearing assembly in concrete, masonry, and steel frame construction.</p>
+      <span class="product-tag">Bulk available</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+      </div>
+      <h3>Locks & security</h3>
+      <p>Deadbolts, padlocks, rim latches, and digital locks for access control on residential and commercial properties.</p>
+      <span class="product-tag">In stock</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>Custom orders</h3>
+      <p>Bespoke fabrication and sourcing for uncommon sizes, finishes, or hardware specifications — just tell us what you need.</p>
+      <span class="product-tag">On request</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="why" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-eyebrow">Why choose us</div>
+  <div class="section-title">The KG advantage</div>
+  <p class="section-sub">We've been supplying building hardware across India for over two decades. Here's what that experience means for you.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div>
+        <h4>Ready inventory</h4>
+        <p>Most items ship the same day. We maintain deep stock so your site never waits on hardware.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div>
+        <h4>Grade-certified materials</h4>
+        <p>All products meet Indian and international quality standards. We source from verified manufacturers.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div>
+        <h4>Contractor pricing</h4>
+        <p>Volume orders get contractor rates. Talk to us about project-level supply agreements and consistent pricing.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div>
+        <h4>Technical support</h4>
+        <p>Not sure what spec you need? Our team will help you match the right product to your application.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-eyebrow">Get in touch</div>
+  <div class="section-title">Request a quote</div>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h3>We're here to help</h3>
+      <p>Whether you need a single item or a full project supply, reach out and we'll get back to you promptly.</p>
+      <div class="contact-detail">
+        <span>📍</span>
+        <div><strong>Location</strong><br>Bengaluru, Karnataka, India</div>  <!-- Change address -->
+      </div>
+      <div class="contact-detail">
+        <span>📞</span>
+        <div><strong>Phone</strong><br>+91 9019602348</div>  <!-- Change phone -->
+      </div>
+      <div class="contact-detail">
+        <span>✉️</span>
+        <div><strong>Email</strong><br>KGinternational.com</div>  <!-- Change email -->
+      </div>
+      <div class="contact-detail">
+        <span>🕐</span>
+        <div><strong>Hours</strong><br>Mon–Fri, 9 AM – 8 PM</div>  <!-- Change hours -->
+      </div>
+    </div>
+    <div class="contact-form">
+      <input type="text" placeholder="Your name" />
+      <input type="text" placeholder="Phone or email" />
+      <input type="text" placeholder="Project type (e.g. residential, commercial)" />
+      <textarea placeholder="Tell us what you need — product, quantity, timeline…"></textarea>
+      <button class="btn-primary" style="align-self: flex-start; cursor: pointer;">Send enquiry →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">KG<span> International</span></div>
+  <p>Building hardware supplier · Bengaluru, India</p>
+  <p style="font-size:12px; color: #555;">© 2026 KG International. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+```
